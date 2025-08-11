@@ -8,9 +8,10 @@ Simple wrapper around Twig to renderer templates in a single method call.
 ### Rendering a template from a string
 
 ```
-use Jmf\TemplateRendering\TemplateRendererInterface;
+use Jmf\TemplateRendering\TemplateRenderer;
 
-/* @var TemplateRendererInterface $renderer */
+$renderer = new TemplateRenderer();
+
 echo $renderer->renderFromString(
     'Hello {{ who }}!',
     [
@@ -33,11 +34,36 @@ Hello {{ who }}!
 
 Then:
 ```
-use Jmf\TemplateRendering\TemplateRendererInterface;
+use Jmf\TemplateRendering\TemplateRenderer;
+
+$renderer = new TemplateRenderer();
 
 /* @var TemplateRendererInterface $renderer */
 echo $renderer->renderFromFile(
     'template.twig',
+    [
+        'who' => 'World',
+    ],
+);
+```
+
+Will output:
+```
+Hello World!
+```
+
+### Rendering a template from a Template object
+
+```
+use Jmf\TemplateRendering\TemplateRenderer;
+use Jmf\TemplateRendering\StringTemplate;
+
+$renderer = new TemplateRenderer();
+
+$template = new StringTemplate('Hello {{ who }}!');
+
+echo $renderer->render(
+    $template,
     [
         'who' => 'World',
     ],

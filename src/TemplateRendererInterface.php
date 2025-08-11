@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jmf\TemplateRendering;
 
 use Jmf\TemplateRendering\Exception\TemplateRenderingException;
@@ -7,22 +9,32 @@ use Jmf\TemplateRendering\Exception\TemplateRenderingException;
 interface TemplateRendererInterface
 {
     /**
-     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $context
+     *
+     * @throws TemplateRenderingException
+     */
+    public function render(
+        TemplateInterface $template,
+        array $context = [],
+    ): string;
+
+    /**
+     * @param array<string, mixed> $context
      *
      * @throws TemplateRenderingException
      */
     public function renderFromString(
-        string $template,
-        array $parameters = [],
+        string $string,
+        array $context = [],
     ): string;
 
     /**
-     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $context
      *
      * @throws TemplateRenderingException
      */
     public function renderFromFile(
         string $file,
-        array $parameters = [],
+        array $context = [],
     ): string;
 }

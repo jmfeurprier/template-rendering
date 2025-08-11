@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jmf\TemplateRendering;
 
 use Jmf\TemplateRendering\Exception\TemplateRenderingException;
 use Override;
-use Throwable;
 use Twig\Environment as TwigEnvironment;
 
 readonly class TemplateRenderer implements TemplateRendererInterface
@@ -15,26 +16,44 @@ readonly class TemplateRenderer implements TemplateRendererInterface
     }
 
     #[Override]
-    public function renderFromString(
-        string $template,
-        array $parameters = [],
+    public function render(
+        TemplateInterface $template,
+        array $context = [],
     ): string {
-        try {
-            return $this->twigEnvironment->createTemplate($template)->render($parameters);
-        } catch (Throwable $e) {
-            throw new TemplateRenderingException('Failed rendering template from string.', 0, $e);
-        }
+        return $this->doRender($template, $context);
+    }
+
+    #[Override]
+    public function renderFromString(
+        string $string,
+        array $context = [],
+    ): string {
+        return $this->doRender(
+            new StringTemplate($string),
+            $context,
+        );
     }
 
     #[Override]
     public function renderFromFile(
         string $file,
-        array $parameters = [],
+        array $context = [],
     ): string {
-        try {
-            return $this->twigEnvironment->render($file, $parameters);
-        } catch (Throwable $e) {
-            throw new TemplateRenderingException('Failed rendering template from file.', 0, $e);
-        }
+        return $this->doRender(
+            new FileTemplate($file),
+            $context,
+        );
+    }
+
+    /**
+     * @param array<string, mixed> $context
+     *
+     * @throws TemplateRenderingException
+     */
+    private function doRender(
+        TemplateInterface $template,
+        array $context = [],
+    ): string {
+        return $template->render($this->twigEnvironment, $context);
     }
 }
