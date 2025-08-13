@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jmf\TemplateRendering;
 
-use Jmf\TemplateRendering\Exception\TemplateRenderingException;
+use Jmf\TemplateRendering\Exception\StringTemplateRenderingException;
 use Override;
 use Throwable;
 use Twig\Environment;
@@ -24,8 +24,9 @@ readonly class StringTemplate implements TemplateInterface
         try {
             return $twigEnvironment->createTemplate($this->string)->render($context);
         } catch (Throwable $e) {
-            throw new TemplateRenderingException(
-                message:  'Failed rendering template from string.',
+            throw new StringTemplateRenderingException(
+                string:   $this->string,
+                context:  $context,
                 previous: $e,
             );
         }

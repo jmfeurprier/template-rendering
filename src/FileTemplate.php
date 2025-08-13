@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jmf\TemplateRendering;
 
-use Jmf\TemplateRendering\Exception\TemplateRenderingException;
+use Jmf\TemplateRendering\Exception\FileTemplateRenderingException;
 use Override;
 use Throwable;
 use Twig\Environment;
@@ -24,8 +24,9 @@ readonly class FileTemplate implements TemplateInterface
         try {
             return $twigEnvironment->render($this->path, $context);
         } catch (Throwable $e) {
-            throw new TemplateRenderingException(
-                message:  'Failed rendering template from file.',
+            throw new FileTemplateRenderingException(
+                path:     $this->path,
+                context:  $context,
                 previous: $e,
             );
         }

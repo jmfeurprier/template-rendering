@@ -38,7 +38,6 @@ use Jmf\TemplateRendering\TemplateRenderer;
 
 $renderer = new TemplateRenderer();
 
-/* @var TemplateRendererInterface $renderer */
 echo $renderer->renderFromFile(
     'template.twig',
     [
