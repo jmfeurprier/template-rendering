@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Jmf\TemplateRendering\Exception;
 
-use Exception;
 use Throwable;
 
-class StringTemplateRenderingException extends Exception
+class StringTemplateRenderingException extends TemplateRenderingException
 {
     /**
      * @param array<string, mixed> $context

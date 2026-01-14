@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Jmf\TemplateRendering\Tests;
 
 use Jmf\TemplateRendering\FileTemplate;
@@ -10,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-class TemplateRendererTest extends TestCase
+final class TemplateRendererTest extends TestCase
 {
     private TemplateRenderer $templateRenderer;
 

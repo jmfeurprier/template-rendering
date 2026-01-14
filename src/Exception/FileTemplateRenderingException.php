@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Jmf\TemplateRendering\Exception;
 
-use Exception;
 use Throwable;
 
-class FileTemplateRenderingException extends Exception
+class FileTemplateRenderingException extends TemplateRenderingException
 {
     /**
      * @param array<string, mixed> $context
@@ -18,7 +17,10 @@ class FileTemplateRenderingException extends Exception
         ?Throwable $previous = null,
     ) {
         parent::__construct(
-            message:  "Failed rendering template from file at {$this->path}.",
+            message:  sprintf(
+                          'Failed rendering template from file at %s',
+                          $this->path,
+                      ),
             previous: $previous,
         );
     }
