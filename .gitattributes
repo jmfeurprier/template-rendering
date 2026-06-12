@@ -4,5 +4,4 @@
 /.gitignore     export-ignore
 /bin            export-ignore
 /dev            export-ignore
-/samples        export-ignore
 /tests          export-ignore

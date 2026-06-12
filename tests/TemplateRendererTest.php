@@ -21,7 +21,7 @@ final class TemplateRendererTest extends TestCase
     {
         $twigEnvironment = new Environment(
             new FilesystemLoader(
-                __DIR__,
+                __DIR__ . '/Fixtures/templates',
             ),
         );
 
